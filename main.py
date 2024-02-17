@@ -5,6 +5,8 @@ import os
 import shutil
 
 # lattice=Trueでテーブルの軸線でセルを判定
+os.mkdir("./files")
+os.mkdir("./output_files")
 dfs = tabula.read_pdf("000876235.pdf", lattice=True, pages='all', pandas_options={'header': None})
 i = 0
 for df in dfs:
@@ -16,4 +18,3 @@ for df in dfs:
 integrate("./files", "output_files")
 
 shutil.rmtree("./files")
-os.mkdir("./files")

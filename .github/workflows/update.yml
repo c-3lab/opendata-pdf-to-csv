@@ -19,6 +19,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - uses: actions/checkout@v2
     - name: Install dim
       run: curl -L https://github.com/c-3lab/dim/releases/latest/download/x86_64-unknown-linux-gnu-dim -o /usr/local/bin/dim
     - name: Grant user execution permission
