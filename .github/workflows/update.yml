@@ -28,12 +28,21 @@ jobs:
       run: dim init
     - name: Install data
       run: dim install -P https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000186912_00002.html -e ".pdf" -n "shinryoujo"
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.11.8"
+    - name: Install Python dependencies
+      run: pip install tabula-py pandas
+    - name: PDF to CSV
+      run: python main.py
     - name: Commit data files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git status
-        git add -f ./data_files
+        git add -f ./data_files dim.json dim-lock.json
+        git add -f ./output_files
         git commit -m "Update data" || echo "Nothing to commit"
     - name: Push changes
       uses: ad-m/github-push-action@master

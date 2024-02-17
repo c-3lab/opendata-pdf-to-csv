@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 
 
-def integrate(input_file_path, output_file_path):
+def integrate(input_file_path, output_file_name):
     csv_files = glob.glob(f"{input_file_path}/*.csv")
     data_list = []
 
@@ -11,4 +11,4 @@ def integrate(input_file_path, output_file_path):
 
     df = pd.concat(data_list, axis=0, sort=True)
 
-    df.to_csv(f"{output_file_path}/integration_file.csv", index=False)
+    df.to_csv(f"{output_file_name}", index=False)
