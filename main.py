@@ -2,13 +2,11 @@ import pandas as pd
 import tabula
 import os
 from constants import PREFECTURES
-
-
+                                                                                                                                                                                                                                                                                                                                 
 def delete_headers(df, line_number):
     if df.iloc[0, 0] == "基本情報" or (len(df.columns) > 1 and df.iloc[0, 1] == "基本情報"):
         return df.drop(df.index[:line_number])
     return df
-
 
 # 大分県に不要なタイトルがあるため削除
 def delete_title(df):
@@ -16,10 +14,8 @@ def delete_title(df):
         return df.drop(df.index[:1])
     return df
 
-
 def fix_format_page_df(df, line_number):
     return delete_headers(delete_title(df), line_number)
-
 
 if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
@@ -35,8 +31,11 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     dfs.insert(0, first_df)
     # ページごとのデータを結合
     df = pd.concat(dfs)
+    
     # 改行コードを削除
     df = df.replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+    #時間表記の「~」を「-」に変換
+    df = df.replace("~", "-", regex=True)
     # データが2つ未満の行は不要な可能性が高いので行を削除 & 列名に欠損値がある場合も列ごと削除
     result_df = df.dropna(thresh=2).dropna(subset=[df.index[0]], axis=1)
 
