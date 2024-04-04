@@ -33,6 +33,13 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     # 2ページ目以降は「基本情報」およびヘッダーを削除するため2行指定
     dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
     dfs.insert(0, first_df)
+
+    #時間表記の「~」を「-」に変換
+    df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
+=======
+     #時間表記の「~」を「-」に変換
+    df = df.replace("~", "-", regex=True)
+
     # ページごとのデータを結合
     df = pd.concat(dfs)
     # 改行コードを削除
