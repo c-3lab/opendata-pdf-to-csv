@@ -39,8 +39,8 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     # 7列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
         if df.columns.get_loc(col) != 6:  # 7列目のインデックスは6
-            df[col] = df[col].str.replace('\n', ' ', regex=True)
-     #       df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+    #        df[col] = df[col].str.replace('\n', ' ', regex=True)
+            df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
     # 改行コードを削除
     #df = df.replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
     #時間表記の「~」を「-」に変換
