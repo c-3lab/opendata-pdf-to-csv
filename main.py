@@ -24,8 +24,8 @@ def fix_format_page_df(df, line_number):
 if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
 
-#for i, prefecture in enumerate(PREFECTURES, 1):
-for i in 3:
+for i, prefecture in enumerate(PREFECTURES, 1):
+#for i in 3:
     print("PREFECTURE_NUMBER", i, prefecture)
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
     dfs = tabula.read_pdf(f"./data_files/shinryoujo_{i}/{opendata_file[0]}", lattice=True, pages='all', pandas_options={'header': None})
