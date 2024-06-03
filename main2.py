@@ -40,12 +40,12 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     for col in df.columns:
         if df.columns.get_loc(col) != 6:  # 7列目のインデックスは6
                 df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
-    # カンマを改行コードに変換
-    #df = df.replace('、', '\n', regex=True)
+    #カンマを改行コードに変換
+    df = df.replace('、', '\n', regex=True)
     #時間表記の「~」を「-」に変換
     df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
-    #「"」を削除
-    df = df.replace('"', '', regex=True)
+    #「"」を改行コードに変換
+    df = df.replace('"', '\n', regex=True)
     # データが2つ未満の行は不要な可能性が高いので行を削除 & 列名に欠損値がある場合も列ごと削除
     result_df = df.dropna(thresh=2).dropna(subset=[df.index[0]], axis=1)
 
