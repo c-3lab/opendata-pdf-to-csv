@@ -20,8 +20,8 @@ def fix_format_page_df(df, line_number):
 if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
 
-#for i, prefecture in enumerate(PREFECTURES, 1):
-for i, prefecture in enumerate(PREFECTURES, 45):
+for i, prefecture in enumerate(PREFECTURES, 1):
+#for i, prefecture in enumerate(PREFECTURES, 45):
 #for i in range(3):
     print("PREFECTURE_NUMBER", i, prefecture)
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
