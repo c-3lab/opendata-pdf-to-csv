@@ -43,7 +43,7 @@ for i in range(3):
     #        df[col] = df[col].str.replace('\n', ' ', regex=True)
             df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
     # 改行コードを削除
-    df = df.replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+    #df = df.replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
     #時間表記の「~」を「-」に変換
     df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
     #時間表記の「~」を「-」に変換
