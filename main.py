@@ -20,8 +20,8 @@ def fix_format_page_df(df, line_number):
 if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
 
-#for i, prefecture in enumerate(PREFECTURES, 1):
-for i, prefecture in enumerate(PREFECTURES, 45):
+for i, prefecture in enumerate(PREFECTURES, 1):
+#for i, prefecture in enumerate(PREFECTURES, 45):
 #for i in range(3):
     print("PREFECTURE_NUMBER", i, prefecture)
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
@@ -34,6 +34,8 @@ for i, prefecture in enumerate(PREFECTURES, 45):
     # ページごとのデータを結合
     df = pd.concat(dfs)
 
+    #'"'を削除
+    df = df.replace('"', '', regex=True)
     # 7列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
         if df.columns.get_loc(col) != 6:  # 7列目のインデックスは6
