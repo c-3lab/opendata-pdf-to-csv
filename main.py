@@ -27,10 +27,10 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
     dfs = tabula.read_pdf(f"./data_files/shinryoujo_{i}/{opendata_file[0]}", lattice=True, pages='all', pandas_options={'header': None})
     # 1ページ目のみ「基本情報」行の削除のため1行指定
-    first_df = fix_format_page_df(dfs[0], 1)
+    first_df = fix_format_page_df(dfs[0], 2)
     # 2ページ目以降は「基本情報」およびヘッダーを削除するため2行指定
-    dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
-    dfs.insert(0, first_df)
+    #dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
+    #dfs.insert(0, first_df)
     # ページごとのデータを結合
     df = pd.concat(dfs)
 
