@@ -30,7 +30,7 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     first_df = fix_format_page_df(dfs[0], 2)
     # 2ページ目以降は「基本情報」およびヘッダーを削除するため2行指定
     #dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
-    #dfs.insert(0, first_df)
+    dfs.insert(0, first_df)
     # ページごとのデータを結合
     df = pd.concat(dfs)
 
