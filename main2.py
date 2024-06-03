@@ -25,7 +25,6 @@ if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
 
 for i, prefecture in enumerate(PREFECTURES, 1):
-#for i in 3:
     print("PREFECTURE_NUMBER", i, prefecture)
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
     dfs = tabula.read_pdf(f"./data_files/shinryoujo_{i}/{opendata_file[0]}", lattice=True, pages='all', pandas_options={'header': None})
@@ -40,10 +39,9 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     # 7列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
         if df.columns.get_loc(col) != 6:  # 7列目のインデックスは6
-    #        df[col] = df[col].str.replace('\n', ' ', regex=True)
-            df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+                df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
     # カンマを改行コードに変換
-    df = df.replace(',', '\n', regex=True)
+    #df = df.replace(',', '\n', regex=True)
     #時間表記の「~」を「-」に変換
     df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
     #「"」を削除
