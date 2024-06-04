@@ -37,7 +37,7 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     
     # 7列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
-        if df.columns.get_loc(col) != 7:  # 8列目のインデックスは7
+        if df.columns.get_loc(col) != 6:  # 8列目のインデックスは7
              df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
        # elif df.columns.get_loc(col) == 7:  # 8列目のインデックスは7
        #     df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
