@@ -27,7 +27,7 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
     dfs = tabula.read_pdf(f"./data_files/shinryoujo_{i}/{opendata_file[0]}", lattice=True, pages='all', pandas_options={'header': None})
     # 1ページ目のみ「基本情報」行の削除のため1行指定
-    first_df = fix_format_page_df(dfs[0], 2)
+    first_df = fix_format_page_df(dfs[0], 1)
     # 2ページ目以降は「基本情報」およびヘッダーを削除するため2行指定
     #dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
     dfs.insert(0, first_df)
@@ -35,11 +35,11 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     df = pd.concat(dfs)
 
     
-    # 7列目のみ改行コードを残しそれ以外は改行コードを削除
+    # 8列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
         if df.columns.get_loc(col) != 7:  # 8列目のインデックスは7
              df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
-        elif df.columns.get_loc(col) == 7:  # 8列目のインデックスは7
+        elif df.columns.get_loc(col) == 7:  # 8列目のインデックスは7、CRのみ残す
             df[col] = df[col].replace('\r', '', regex=True)
        # else:
        #     df[col] = df[col]
