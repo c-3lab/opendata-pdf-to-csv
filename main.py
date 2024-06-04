@@ -21,35 +21,26 @@ if not os.path.exists("./output_files"):
     os.mkdir("./output_files")
 
 for i, prefecture in enumerate(PREFECTURES, 1):
-#for i, prefecture in enumerate(PREFECTURES, 45):
-#for i in range(3):
     print("PREFECTURE_NUMBER", i, prefecture)
     opendata_file = os.listdir(f"./data_files/shinryoujo_{i}")
     dfs = tabula.read_pdf(f"./data_files/shinryoujo_{i}/{opendata_file[0]}", lattice=True, pages='all', pandas_options={'header': None})
     # 1ページ目のみ「基本情報」行の削除のため1行指定
     first_df = fix_format_page_df(dfs[0], 1)
-    # 2ページ目以降は「基本情報」およびヘッダーを削除するため2行指定
-    #dfs = [fix_format_page_df(x, 2) for x in dfs[1:]]
     dfs.insert(0, first_df)
     # ページごとのデータを結合
     df = pd.concat(dfs)
 
-    
     # 8列目のみ改行コードを残しそれ以外は改行コードを削除
     for col in df.columns:
         if df.columns.get_loc(col) != 7:  # 8列目のインデックスは7
-             df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
-        elif df.columns.get_loc(col) == 7:  # 8列目のインデックスは7、CRのみ残す
+            df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+        # 8列目のインデックスは7、CRのみ残す
+        elif df.columns.get_loc(col) == 7:
             df[col] = df[col].replace('\r', '', regex=True)
-       # else:
-       #     df[col] = df[col]
-
-
+       
     #時間表記の「~」を「-」に変換
     df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
-    #時間表記の「~」を「-」に変換
-    #df = df.replace("~", "-", regex=True)
-    # データが2つ未満の行は不要な可能性が高いので行を削除 & 列名に欠損値がある場合も列ごと削除
+    6777# データが2つ未満の行は不要な可能性が高いので行を削除 & 列名に欠損値がある場合も列ごと削除
     result_df = df.dropna(thresh=2).dropna(subset=[df.index[0]], axis=1)
 
     prefecture_number = str(i).zfill(2)
