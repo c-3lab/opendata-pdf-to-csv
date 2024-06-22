@@ -35,8 +35,13 @@ for i, prefecture in enumerate(PREFECTURES, 1):
     dfs.insert(0, first_df)
     # ページごとのデータを結合
     df = pd.concat(dfs)
-    # 改行コードを削除
-    df = df.replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+    # 8列目のみ改行コードを残しそれ以外は改行コードを削除
+    for col in df.columns:
+        if df.columns.get_loc(col) != 7:  # 8列目のインデックスは7
+            df[col] = df[col].replace('\n', '', regex=True).replace('\r', '', regex=True).replace('\r\n', '', regex=True).replace('\n\r', '', regex=True)
+        # 8列目のインデックスは7、CRのみ残す
+        elif df.columns.get_loc(col) == 7:
+            df[col] = df[col].replace('\r', '', regex=True)
     #時間表記の「~」を「-」に変換
     df = df.replace("~", "-", regex=True).replace("～", "-", regex=True)
     #時間表記の「~」を「-」に変換
